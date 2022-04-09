@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- {% load static %} use css and others: -->
+<!-- When using the static tag to call the image from the static directory, -->
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8" />
+    {% extends "base.html" %}
+    {% load crispy_forms_tags %}
+    
+    {% block title %}
+        Create
+    {% endblock title %}
+    
+    {% block content %}
+        <form action="{% url 'article-create' %}" method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" value="Create">
+        </form>
+    {% endblock content %}
+  </body>
+</html>
