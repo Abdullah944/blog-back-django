@@ -1,4 +1,3 @@
-from django.contrib.auth import logout
 from .forms import ArticleForm
 from django.shortcuts import render, redirect
 from .forms import ModelNameForm
@@ -6,6 +5,7 @@ from .models import Article
 from .forms import UserRegister
 from .forms import UserLogin
 from django.contrib.auth import login, authenticate
+from django.contrib.auth import logout
 from django.http import Http404
 from django.db.models import Q
 
@@ -21,7 +21,7 @@ from django.db.models import Q
 # def hello(request):
 # return HttpResponse("<h1> Hello</h1>")
 
-
+# ? HOME page:
 def home(request):
     context = {
         "title": "Home",
@@ -30,6 +30,7 @@ def home(request):
     return render(request, "home_page.html", context)
 
 
+# ? detail page:
 def article_detail(request, article_id):
     context = {
         "article": Article.objects.get(id=article_id),
@@ -37,7 +38,7 @@ def article_detail(request, article_id):
     return render(request, "article_detail_page.html", context)
 
 
-# + search
+# ? get list + search
 def article_list(request):
     articles = Article.objects.all()
 
@@ -55,6 +56,7 @@ def article_list(request):
     return render(request, "article_list.html", context)
 
 
+# ? create view || page:
 def create_view(request):
     form = ModelNameForm()
     if request.method == "POST":
@@ -66,6 +68,7 @@ def create_view(request):
     return render(request, "create_page.html", context)
 
 
+# ? update  controls:
 def article_update(request, article_id):
     article = Article.objects.get(id=article_id)
     form = ArticleForm(instance=article)
@@ -78,6 +81,7 @@ def article_update(request, article_id):
     return render(request, "article_update.html", context)
 
 
+# ? Auth Controllers:
 def user_register(request):
     form = UserRegister()
     if request.method == "POST":
@@ -121,6 +125,7 @@ def logout_view(request):
     return redirect("success-page")
 
 
+# ? 404 Controller:
 def not_found(request):
     if not request.user.is_staff:
         raise Http404

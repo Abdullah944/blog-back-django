@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 # Create your models here #?(SCEHMA).
 # ?models.py is how we map our data to the database.
 
-
+# ? main schema:
 class Article(models.Model):
     title = models.CharField(max_length=120)
     content = models.TextField()
@@ -18,12 +18,14 @@ class Article(models.Model):
         return self.title
 
 
+# ? modal form:
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = ["title", "content", "author"]
 
 
+# ? Auth SCHEMA:
 class UserRegister(forms.ModelForm):
     class Meta:
         model = User
@@ -34,7 +36,7 @@ class UserRegister(forms.ModelForm):
         }
 
 
-# one to many
+# ? one to many :
 class Author(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
